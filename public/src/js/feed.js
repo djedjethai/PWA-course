@@ -181,12 +181,12 @@ form.addEventListener('submit', function(event) {
               .then(function() {
 
                 // ma solution temporaire pour afficher the posted datas
-                // setTimeout(() => {
-                //   readAllData('posts')
-                //   .then(datas => {
-                //     updateUI(datas);
-                //   })
-                // }, 5000);
+                setTimeout(() => {
+                  readAllData('posts')
+                  .then(datas => {
+                    updateUI(datas);
+                  })
+                }, 5000);
 
                 // all this snackbar blabla... is link to the design third party library used by the prof
                 var snackbarContainer = document.querySelector('#confirmation-toast');
