@@ -5,6 +5,7 @@ var sharedMomentsArea = document.querySelector('#shared-moments');
 var form = document.querySelector('form');
 var titleInput = document.querySelector('#title');
 var locationInput = document.querySelector('#location');
+var imageInput = document.querySelector('#image');
 
 function openCreatePostModal() {
   // createPostArea.style.display = 'block';
@@ -81,6 +82,16 @@ function createCard(data) {
   cardSupportingText.className = 'mdl-card__supporting-text';
   cardSupportingText.textContent = data.location;
   cardSupportingText.style.textAlign = 'center';
+
+   // var cardSupportingImageText = document.createElement('label');
+  // cardSupportingImageText.htmlFor = 'image';
+  // cardSupportingImageText.innerHTML = 'image';
+  // var cardSupportingImage = document.createElement('input');
+  // cardSupportingImage.id = 'image';
+  // cardSupportingImage.name = 'image';
+  // cardSupportingImage.type = 'file'
+  
+
   // var cardSaveButton = document.createElement('button');
   // cardSaveButton.textContent = 'Save';
   // cardSaveButton.addEventListener('click', onSaveButtonClicked);
@@ -138,12 +149,13 @@ function sendData() {
     body: JSON.stringify({
       id: new Date().toISOString(),
       title: titleInput.value,
-      location: locationInput.value
+      location: locationInput.value,
+      image: imageInput.value
     })
   })
   .then(function(res) {
     console.log('ET LA ENVULER...')
-    // console.log('Send data', res);
+    console.log('Send data', res);
     // updateUI();
     return res.json();
   })
@@ -169,7 +181,8 @@ form.addEventListener('submit', function(event) {
         var post = {
           id: new Date().toISOString(),
           title: titleInput.value,
-          location: locationInput.value
+          location: locationInput.value,
+          image: imageInput.value
          }
          clearAllData('sync-posts')
           .then(function(respClearData) {
