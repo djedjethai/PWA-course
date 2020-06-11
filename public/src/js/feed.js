@@ -139,19 +139,38 @@ if ('indexedDB' in window) {
 
 // that the data which will be send if the browser do not support sw or SyncManager
 function sendData() {
-  console.log('SENDING DATA');
-  fetch('http://localhost:3000/feed/feed', {
-    method: 'POST',
-    headers: {
+  let formData;
+  let formHeader;
+  if (typeof(imageInput.value) === 'object') {
+    // for formData
+    // a voir .....????? set l'histoire du token as well
+    formHeader = {};
+
+    formData = new FormData;
+    formData.append('id', new Date().toISOString());
+    formData.append('title', titleInput.value);
+    formData.append('location', locationInput.value);
+    formData.append('image', imageInput.value);
+    
+  } else {
+    // for form
+    formHeader = {
       'Content-Type':'application/json',
       'Accept':'application/json'
-    },
-    body: JSON.stringify({
+    };
+    formData = JSON.stringify({
       id: new Date().toISOString(),
       title: titleInput.value,
       location: locationInput.value,
       image: imageInput.value
-    })
+    });
+  }
+  
+  console.log('SENDING DATA');
+  fetch('http://localhost:3000/feed/feed', {
+    method: 'POST',
+    headers: formHeader,
+    body: formData
   })
   .then(function(res) {
     console.log('ET LA ENVULER...')
@@ -162,7 +181,7 @@ function sendData() {
   .then(function(resData) {
     console.log('A AFFICHER');
     console.log(resData);
-    updateUI();
+    updateUI(resData);
   })
 }
 

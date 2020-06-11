@@ -28,10 +28,13 @@ exports.getFeeds = async (req, res, next) => {
 
 exports.registerFeed = (req, res, next) => {
     console.log('salut de register les gros');
+    console.log(req.file);
+    console.log('after req.file.path');
 
     const title = req.body.title;
     const location = req.body.location;
-    const image = 'image url';
+    const image = !req.file ? 'image url' : req.file.path ;
+    console.log(image);
 
     const feed = new Feed({
         title: title,
@@ -39,12 +42,15 @@ exports.registerFeed = (req, res, next) => {
         image: image
     })
 
+    
     feed.save()
         .then(resultFeedSave => {
 
         Feed.find()
             .then(feeds => {
             // just for fun, we send back the posts to be store in the indexedDB's browser
+            // console.log('feeds');
+            // console.log(feeds);
             let newFeeds = [];
             for (let key in feeds) {
                 let idString = (feeds[key]._id).toString();
@@ -67,37 +73,49 @@ exports.registerFeed = (req, res, next) => {
                 // private key
                 process.env.PRIVATE_KEY
             )
-    
+                
+            
             // get all subscription
             Subscription.find({}).then(subs => {
-                // iterate and set them to send the push notification
-                subs.forEach((sub) => {
-                    let pushConfig = {
-                        endpoint: sub.endpoint,
-                        keys: {
-                            auth: sub.keys.auth,
-                            p256dh: sub.keys.p256dh
-                        } 
-                    };
-                   
-                    // the second arg is simply the meaage we want to display(could be a simple string)
-                    webpush.sendNotification(pushConfig, JSON.stringify({
-                            title: 'New post',
-                            content: 'New post added !'
+                
+                if (subs.length > 1) {
+                    // iterate and set them to send the push notification
+                    subs.forEach((sub) => {
+                        let pushConfig = {
+                            endpoint: sub.endpoint,
+                            keys: {
+                                auth: sub.keys.auth,
+                                p256dh: sub.keys.p256dh
+                            } 
+                        };
+                    
+                        // the second arg is simply the meaage we want to display(could be a simple string)
+                        webpush.sendNotification(pushConfig, JSON.stringify({
+                                title: 'New post',
+                                content: 'New post added !'
+                            })
+                        )
+                        .then(response => {
+                            
+                            res.status(200).json({
+                                message: 'feeds fetched successfully',
+                                feeds: newFeeds
+                            });
                         })
-                    )
-                    .then(response => {
-                        
-                        res.status(200).json({
-                            message: 'feeds fetched successfully',
-                            feeds: newFeeds
-                        });
-                    })
-                    .catch(err => console.log(err));
-                });
+                        .catch(err => console.log(err));
+                    });
+                } else {
+                    console.log('send mess back');
+                    console.log(newFeeds);
+                    res.status(200).json({
+                        message: 'feeds fetched successfully',
+                        feeds: newFeeds
+                    });
+                }
             })
     
-        });
+        })
+        .catch(e => console.log(e));
     });      
 }
 
