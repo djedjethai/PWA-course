@@ -12,7 +12,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 //si on ne mets pa '/image au depart, express serve the file image as it s a root file. 
 //but we register the path of our pics as '/images/namePic.....jpg'. so we need to add '/images'
 app.use('/images', express.static(path.join(__dirname, 'images')));

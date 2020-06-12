@@ -193,18 +193,54 @@ self.addEventListener('sync', function(event) {
            
             console.log('after dt');
             // fetch('https://us-central1-pwapp-2e65c.cloudfunctions.net/storePostData', {
-            fetch('http://localhost:3000/feed/feed', {
-              method: 'POST',
-              headers: {
+            // fetch('http://localhost:3000/feed/feed', {
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type':'application/json',
+            //     'Accept':'application/json'
+            //   },
+            //   body: JSON.stringify({
+            //     id: dt.id,
+            //     title: dt.title,
+            //     location: dt.location,
+            //     image: 'a superbe image'
+            //   })
+            // })
+            let formData;
+            let formHeader;
+            if (typeof(dt.image) === 'object') {
+              console.log('sendData in image');
+              // for formData
+              // a voir .....????? set l'histoire du token as well
+              formHeader = {};
+
+              formData = new FormData;
+              formData.append('id', dt.id);
+              formData.append('title', dt.title);
+              formData.append('location', dt.location);
+              formData.append('image', dt.image);
+              
+              
+            } else {
+              console.log('sendData in json');
+              // for form
+              formHeader = {
                 'Content-Type':'application/json',
                 'Accept':'application/json'
-              },
-              body: JSON.stringify({
+              };
+              formData = JSON.stringify({
                 id: dt.id,
                 title: dt.title,
                 location: dt.location,
                 image: 'a superbe image'
-              })
+              });
+            }
+            
+            console.log('SENDING DATA');
+            fetch('http://localhost:3000/feed/feed', {
+              method: 'POST',
+              headers: formHeader,
+              body: formData
             })
             .then(function(res) {
               // the .ok is a method fournit confimant status 200

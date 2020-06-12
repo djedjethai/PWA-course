@@ -142,6 +142,7 @@ function sendData() {
   let formData;
   let formHeader;
   if (typeof(imageInput.value) === 'object') {
+    console.log('sendData in image');
     // for formData
     // a voir .....????? set l'histoire du token as well
     formHeader = {};
@@ -153,6 +154,7 @@ function sendData() {
     formData.append('image', imageInput.value);
     
   } else {
+    console.log('sendData in json');
     // for form
     formHeader = {
       'Content-Type':'application/json',
@@ -197,11 +199,14 @@ form.addEventListener('submit', function(event) {
     // here we r in feed.js and not in the sw file, so that the way to access to it
     navigator.serviceWorker.ready
       .then(function(sw) {
+        const imgObj = document.getElementById('image').files[0];
+        console.log('before store image in indexedDb');
+        console.log(typeof imgObj);
         var post = {
           id: new Date().toISOString(),
           title: titleInput.value,
           location: locationInput.value,
-          image: imageInput.value
+          image: imgObj
          }
          clearAllData('sync-posts')
           .then(function(respClearData) {
