@@ -27,22 +27,17 @@ exports.getFeeds = async (req, res, next) => {
 }
 
 exports.registerFeed = (req, res, next) => {
-    console.log('salut de register les gros');
-    console.log(req.file);
-    console.log('after req.file.path');
 
     const title = req.body.title;
     const location = req.body.location;
     const image = !req.file ? 'image url' : req.file.path ;
-    console.log(image);
 
     const feed = new Feed({
         title: title,
         location: location,
         image: image
     })
-
-    
+ 
     feed.save()
         .then(resultFeedSave => {
 
@@ -74,10 +69,8 @@ exports.registerFeed = (req, res, next) => {
                 process.env.PRIVATE_KEY
             )
                 
-            
             // get all subscription
             Subscription.find({}).then(subs => {
-                
                 if (subs.length > 1) {
                     // iterate and set them to send the push notification
                     subs.forEach((sub) => {
@@ -88,7 +81,6 @@ exports.registerFeed = (req, res, next) => {
                                 p256dh: sub.keys.p256dh
                             } 
                         };
-                    
                         // the second arg is simply the meaage we want to display(could be a simple string)
                         webpush.sendNotification(pushConfig, JSON.stringify({
                                 title: 'New post',
@@ -96,7 +88,6 @@ exports.registerFeed = (req, res, next) => {
                             })
                         )
                         .then(response => {
-                            
                             res.status(200).json({
                                 message: 'feeds fetched successfully',
                                 feeds: newFeeds
@@ -105,8 +96,6 @@ exports.registerFeed = (req, res, next) => {
                         .catch(err => console.log(err));
                     });
                 } else {
-                    console.log('send mess back');
-                    console.log(newFeeds);
                     res.status(200).json({
                         message: 'feeds fetched successfully',
                         feeds: newFeeds

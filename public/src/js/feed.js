@@ -70,7 +70,7 @@ function createCard(data) {
   cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
   var cardTitle = document.createElement('div');
   cardTitle.className = 'mdl-card__title';
-  cardTitle.style.backgroundImage = 'url(' + data.image + ')';
+  cardTitle.style.backgroundImage = 'url(http://localhost:3000/' + data.image + ')';
   cardTitle.style.backgroundSize = 'cover';
   cardWrapper.appendChild(cardTitle);
   var cardTitleTextElement = document.createElement('h2');
@@ -83,7 +83,7 @@ function createCard(data) {
   cardSupportingText.textContent = data.location;
   cardSupportingText.style.textAlign = 'center';
 
-   // var cardSupportingImageText = document.createElement('label');
+  // var cardSupportingImageText = document.createElement('label');
   // cardSupportingImageText.htmlFor = 'image';
   // cardSupportingImageText.innerHTML = 'image';
   // var cardSupportingImage = document.createElement('input');
@@ -175,14 +175,9 @@ function sendData() {
     body: formData
   })
   .then(function(res) {
-    console.log('ET LA ENVULER...')
-    console.log('Send data', res);
-    // updateUI();
     return res.json();
   })
   .then(function(resData) {
-    console.log('A AFFICHER');
-    console.log(resData);
     updateUI(resData);
   })
 }
@@ -221,6 +216,8 @@ form.addEventListener('submit', function(event) {
                 setTimeout(() => {
                   readAllData('posts')
                   .then(datas => {
+                    console.log('BEFORE_UPDATEUI');
+                    console.log(datas);
                     updateUI(datas);
                   })
                 }, 5000);

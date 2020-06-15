@@ -51,13 +51,15 @@ const fileFilter = (req, file, cb) => {
 //but still the extenssion is missing. so we don t use that.
 //app.use(multer({dest: 'images'}).single('image'))
 //we use 
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('images'))
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'))
 
 
 app.use('/feed', feedsRouter);
 app.use('/subscription', subscriptionsRouter);
 
 app.use((error, req, res, next) => {
+    console.log('in middleware catch err');
+    console.log(error);
     const status = error.statusCode || 500;
     const message = error.message;
     const data = error.data;
