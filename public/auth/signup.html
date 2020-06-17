@@ -41,8 +41,8 @@
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
         <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <a class="mdl-navigation__link" href="/auth/login.html">Login</a>
-          <a class="mdl-navigation__link" href="/auth/signup.html">Signup</a>
+          <a class="mdl-navigation__link" href="../index.html">Back to Welcome</a>
+          <a class="mdl-navigation__link" href="login.html">Login</a>
           <div class="drawer-option">
             <button class="enable-notifications mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--accent">
               Enable Notifications
@@ -54,8 +54,8 @@
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">PWAGram</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="/auth/login.html">Login</a>
-          <a class="mdl-navigation__link" href="/auth/signup.html">Signup</a>
+          <a class="mdl-navigation__link" href="../index.html">Back to Welcome</a>
+          <a class="mdl-navigation__link" href="login.html">Login</a>
           <div class="drawer-option">
             <button class="enable-notifications mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--accent">
               Enable Notifications
@@ -63,11 +63,29 @@
           </div>
         </nav>
       </div>
-    <main></main>
-    <h1>Welcome there is the Auth</h1>
-      <form action="/app.html">
-          <label for="auth">Click here to proceed</label>
-          <button type="submit" name="auth" id="auth">click here</button>
+    <main style="text-align:center;">
+    <h1>Welcome in signup</h1>
+      <form>
+        <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="email">
+          <label class="mdl-textfield__label" for="email" name="email">Email</label>
+        </div>
+        <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="manual-location">
+          <input class="mdl-textfield__input" type="text" id="password">
+          <label class="mdl-textfield__label" for="password" name="password">Password</label>
+        </div>
+        <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="manual-location">
+          <input class="mdl-textfield__input" type="text" id="confirmPassword">
+          <label class="mdl-textfield__label" for="confirmPassword" name="confirmPassword">Confirm Password</label>
+        </div>
+        
+        <br>
+          <div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--accent"
+                    type="submit" id="post-btn">Post!
+            </button>
+          </div>
+        <br>
       </form>
     </main>
 </body>

@@ -6,7 +6,7 @@ var CACHE_STATIC_NAME = 'static-v49';
 var CACHE_DYNAMIC_NAME = 'dynamic-v8';
 var STATIC_FILES = [
   '/',
-  '/index.html',
+  '/app.html',
   '/offline.html',
   '/src/js/app.js',
   '/src/js/feed.js',

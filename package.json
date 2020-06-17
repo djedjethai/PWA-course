@@ -2,7 +2,7 @@
   "name": "pwa-complete-guide",
   "version": "1.0.0",
   "description": "A complete guide to PWAs. Building a simple Instagram clone.",
-  "main": "index.js",
+  "main": "app.html",
   "scripts": {
     "start": "http-server -c-1"
   },
