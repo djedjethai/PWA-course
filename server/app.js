@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const feedsRouter = require('./routes/feedsRt');
 const subscriptionsRouter = require('./routes/subscriptionsRt');
+const authRouter = require('./routes/authRt');
 
 require('dotenv').config();
 
@@ -56,6 +57,7 @@ app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'))
 
 app.use('/feed', feedsRouter);
 app.use('/subscription', subscriptionsRouter);
+app.use('/auth', authRouter);
 
 app.use((error, req, res, next) => {
     console.log('in middleware catch err');
@@ -75,8 +77,3 @@ mongoose.connect(
 })
 .catch(err => console.log(err))
 
-// Public Key:
-// BERSfN8w1o_6561QYSHLODi2uPv5ZMaZTGbQTskh7DLRqGptDAMdv_9Oxtzw6MPqTEK5kMC38eZh-JEzx6oSv30
-
-// Private Key:
-// AL_1GGPVzm9M-p-oCFQfYqB9vedWBAh9BwWp02sbyJk

@@ -1,5 +1,7 @@
 var form = document.querySelector('form');
 
+var formCompleted = false;
+
 function surligne(champ, erreur)
 {
    if(erreur)
@@ -59,7 +61,10 @@ function verifForm(f)
    var confirmPasswordOk = verifConfirmPassword(f.confirmPassword);
    
    if(emailOk && passwordOk && confirmPasswordOk)
+   {
+      formCompleted = true;	
       return true;
+   } 
    else
    {
       alert("Veuillez remplir correctement tous les champs");
@@ -69,9 +74,22 @@ function verifForm(f)
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    // var password = document.querySelector('#password');
-    // var email = document.querySelector('#email');
-    // var confirmPassword = document.querySelector('#confirmPassword');
-
-    console.log('envoi bloque form ras');
-})
+    var password = document.querySelector('#password');
+    var email = document.querySelector('#email');
+    var confirmPassword = document.querySelector('#confirmPassword');
+    if (formCompleted) {
+    	const formData = {
+		    email: email.value,
+		    password: password.value,
+		    confirmPassword: confirmPassword.value
+	}; 
+	fetch('http://localhost:3000/auth/authSignup',{
+		method:'POST',
+		body:JSON.stringify(formData),
+		headers: {'Content-type':'application/json'}
+	})
+    }
+    else {
+	    console.log('fom incomplet pas d\'envoi');
+    }
+    })
