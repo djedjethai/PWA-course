@@ -65,17 +65,17 @@
       </div>
     <main style="text-align:center;">
     <h1>Welcome in signup</h1>
-      <form onsubmit="return verifForm(this)">
+      <form onsubmit="return verifForm.verifFinal(this)">
         <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="email" onblur="verifEmail(this)">
+          <input class="mdl-textfield__input" type="text" id="email" onblur="verifForm.verifEmail(this)">
           <label class="mdl-textfield__label" for="email" name="email">Email</label>
         </div>
         <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="manual-location">
-          <input class="mdl-textfield__input" type="text" id="password" onblur="verifPassword(this)">
+          <input class="mdl-textfield__input" type="text" id="password" onblur="verifForm.verifPassword(this)">
           <label class="mdl-textfield__label" for="password" name="password">Password</label>
         </div>
         <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="manual-location">
-          <input class="mdl-textfield__input" type="text" id="confirmPassword" onblur="verifConfirmPassword(this)">
+          <input class="mdl-textfield__input" type="text" id="confirmPassword" onblur="verifForm.verifConfirmPassword(this)">
           <label class="mdl-textfield__label" for="confirmPassword" name="confirmPassword">Confirm Password</label>
         </div>
         
