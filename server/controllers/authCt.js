@@ -21,15 +21,13 @@ exports.postSignup = (req, res, next) => {
 	&& req.body.password.length > 2 && req.body.password.length < 25
 	&& req.body.password === req.body.confirmPassword){
 
-			console.log(signUp);
+			console.log(req.body);
 	} else {
 		// bloque registration res.err
 		return;
 	}
 
-		
-
-	// bcrypt pw 
+	 
 	bcrypt.hash(req.body.password, 12)
 		.then(hashedPw => {
 			const signUp = new Auth({
@@ -39,25 +37,43 @@ exports.postSignup = (req, res, next) => {
 			return signUp;
 		})
 		.then(userCdl => {
-			return userCdl.save()
+			return Auth.findOne({email: userCdl.email})
+				.then(user => {
+					console.log(user);
+					if (!user) {
+						return userCdl.save() 
+					} else {
+						let message = 'accountExist';
+						return message;
+					}
+				})
+				.catch(e => console.log(e));
+
 		})
 		.then(response => {
 			console.log('retour de db')
 			console.log(response);
-			/* response
-			_id: 5ef09da63a29aa1560aff579,
-  			email: 'jerome@jerome.com'			  
-			password: 'ddd',
-			confirmPassword: 'ddd',
-			createdAt: 2020-06-22T12:01:42.385Z,
-			 updatedAt: 2020-06-22T12:01:42.385Z,
-			 __v: 0
-			*/
-		
+			if (response === 'accountExist') {
+				res.status(200).json({
+					message: 'Your account already exist'
+				});
 
-			// jsonwebtoken
-			// create token and send back to front
-			// then save in local storage of the browser(voir ex apiUdemy)
+			} else {
+
+				const token = jwt.sign(
+					{ _id: response._id },
+					"ThisSecretShouldBeLongeur",
+					{ expiresIn: '1h' }
+				);
+
+				res.status(200).json({
+					_id: response._id,
+					email: response.email,
+					token: token,
+					message: 'Your account has been successfully created'
+				});
+			}
+
 		})
 		.catch(e => console.log(e));
 }

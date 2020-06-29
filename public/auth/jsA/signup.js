@@ -81,7 +81,6 @@ class VerifForm {
 		var confirmPassword = document.querySelector('#confirmPassword');
 			
 		if (this.formCompleted) {
-		    console.log('envoi form');
 		    this.formCompleted = false;
 						
 		    const formData = {
@@ -95,8 +94,23 @@ class VerifForm {
 			    headers: {'Content-type':'application/json'}
 		    	})
 			.then(res => {
+				return res.json()
 				// save webtoken in the browser
 				// and make sur that is not lose if user reload page
+			})
+			.then(response => {
+				if (response.token) {
+					localStorage.setItem('token', response.token);
+					localStorage.setItem('userId', response._id);
+					const remainingMilliseconds = 60 * 60 * 1000;
+        				const expiryDate = new Date(
+        				  new Date().getTime() + remainingMilliseconds
+        				);
+        				localStorage.setItem('expiryDate', expiryDate.toISOString());
+					// redirection to the main page
+				} else {
+					console.log(response);
+				}
 			})
 			.catch(e => console.log(e));
 		} else {
