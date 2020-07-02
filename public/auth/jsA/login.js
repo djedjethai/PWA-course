@@ -41,28 +41,12 @@ class VerifForm {
    		}
 	}
 
-	static verifConfirmPassword(champ)
-	{
-   		var password = document.querySelector('#password');
-   		if(champ.value !== password.value)
-   		{
-      			this.surligne(champ, true);
-      			return false;
-   		}
-   		else
-   		{
-      			this.surligne(champ, false);
-      			return true;
-   		}
-	}
-
 	static verifFinal(f)
 	{
    		var emailOk = this.verifEmail(f.email);
    		var passwordOk = this.verifPassword(f.password);
-   		var confirmPasswordOk = this.verifConfirmPassword(f.confirmPassword);
 
-   		if(emailOk && passwordOk && confirmPasswordOk)
+   		if(emailOk && passwordOk)
    		{
 			this.formCompleted = true;
 			return true;
@@ -86,9 +70,8 @@ class VerifForm {
 		    const formData = {
 				email: email.value,
 				password: password.value,
-				confirmPassword: confirmPassword.value
 		    }; 
-		    fetch('http://localhost:3000/auth/authSignup',{
+		    fetch('http://localhost:3000/auth/authlogin',{
 			    method:'POST',
 			    body:JSON.stringify(formData),
 			    headers: {'Content-type':'application/json'}
