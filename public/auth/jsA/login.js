@@ -74,7 +74,10 @@ class VerifForm {
 		    fetch('http://localhost:3000/auth/authlogin',{
 			    method:'POST',
 			    body:JSON.stringify(formData),
-			    headers: {'Content-type':'application/json'}
+			    headers: {
+				    'Content-type':'application/json',
+				    // Authorization: 'Bearer ' + 'bullshit' 
+			    }
 		    	})
 			.then(res => {
 				return res.json()

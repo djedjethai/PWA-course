@@ -108,10 +108,12 @@ function updateUI(data) {
   }
 }
 
+// console.log('le token de fou....');
+const token = localStorage.getItem('token');
 var url = 'http://localhost:3000/feed/feeds';
 var networkDataReceived = false;
 
-fetch(url)
+fetch(url, {headers: { Authorization: 'Bearer ' + token }})
   .then(function(res) {
     return res.json();
   })
@@ -155,10 +157,13 @@ function sendData() {
     
   } else {
     console.log('sendData in json');
+    console.log(token);
     // for form
+    // const token = localStorage.getItem('token'); 
     formHeader = {
       'Content-Type':'application/json',
-      'Accept':'application/json'
+      'Accept':'application/json',
+      Authorization: 'Bearer ' + token
     };
     formData = JSON.stringify({
       id: new Date().toISOString(),
@@ -169,6 +174,7 @@ function sendData() {
   }
   
   console.log('SENDING DATA');
+  console.log(localStorage.getItem('token'));	
   fetch('http://localhost:3000/feed/feed', {
     method: 'POST',
     headers: formHeader,
