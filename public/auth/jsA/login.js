@@ -93,7 +93,7 @@ class VerifForm {
         				  new Date().getTime() + remainingMilliseconds
         				);
         				localStorage.setItem('expiryDate', expiryDate.toISOString());
-					window.location.replace("http://localhost:8080/app.html?auth=");
+					window.location.replace("http://localhost:8080/app.html");
 					// redirection to the main page
 				} else {
 					console.log(response);

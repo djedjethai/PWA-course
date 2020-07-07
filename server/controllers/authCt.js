@@ -51,12 +51,16 @@ exports.postSignup = (req, res, next) => {
 				error.data = errors.array();
 				throw error;
 			} else {
+				console.log('le token de signUp');
+				console.log(response._id);
 				const token = jwt.sign(
 					{ _id: response._id },
-					"ThisSecretShouldBeLongeur",
+					"ThisSecretShouldBeLongueur",
 					{ expiresIn: '1h' }
 				);
 
+				console.log('token at signUp');
+				console.log(token);
 				res.status(200).json({
 					_id: response._id,
 					email: response.email,
@@ -126,7 +130,7 @@ exports.postLogin = async (req, res, next) => {
 							
 						res.status(200).json({
 							 email: user.email,
-							 userId: user._id,
+							 _id: user._id,
 							 token: token
 						})  
 				}		
@@ -143,6 +147,11 @@ exports.postLogin = async (req, res, next) => {
 		error.data = errors.array();
 		throw error;
 	}
-	
-		
 }
+
+
+
+
+
+
+

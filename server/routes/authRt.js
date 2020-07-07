@@ -1,13 +1,13 @@
 const express = require('express');
 const { check, body } = require('express-validator');
 
-const signup = require('../controllers/authCt');
-const login = require('../controllers/authCt');
+// ok// const { postSignup, postLogin } = require('../controllers/authCt');
+const authCt = require('../controllers/authCt');
+
 
 const router = express.Router();
 
-router.post('/authSignup', signup.postSignup);
-router.post('/authLogin', login.postLogin);
-
+router.post('/authSignup', authCt.postSignup);
+router.post('/authLogin', authCt.postLogin);
 
 module.exports = router;

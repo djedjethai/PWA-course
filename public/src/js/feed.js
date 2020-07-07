@@ -108,8 +108,9 @@ function updateUI(data) {
   }
 }
 
-// console.log('le token de fou....');
+console.log('le token de fou....');
 const token = localStorage.getItem('token');
+console.log(token);
 var url = 'http://localhost:3000/feed/feeds';
 var networkDataReceived = false;
 
@@ -243,5 +244,12 @@ form.addEventListener('submit', function(event) {
     sendData();
   }
 })
+
+
+function logoutHandler() {
+	localStorage.removeItem('token');
+	localStorage.removeItem('expiryDate');
+	localStorage.removeItem('userId');
+}
 
 
