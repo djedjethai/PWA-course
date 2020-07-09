@@ -7,6 +7,8 @@ var titleInput = document.querySelector('#title');
 var locationInput = document.querySelector('#location');
 var imageInput = document.querySelector('#image');
 
+
+
 function openCreatePostModal() {
   // createPostArea.style.display = 'block';
   // setTimeout(function() {
@@ -111,6 +113,16 @@ function updateUI(data) {
 console.log('le token de fou....');
 const token = localStorage.getItem('token');
 console.log(token);
+
+window.addEventListener('load', (e) => {
+	if (!token) {
+		window.location.replace("http://localhost:8080/");
+	}
+});
+
+
+
+
 var url = 'http://localhost:3000/feed/feeds';
 var networkDataReceived = false;
 

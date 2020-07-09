@@ -43,24 +43,17 @@ exports.postSignup = (req, res, next) => {
 
 		})
 		.then(response => {
-			console.log('retour de db')
-			console.log(response);
 			if (response === 'accountExist') {
 				const error = new Error('This account already exist');
 				error.statusCode = 401;
 				error.data = errors.array();
 				throw error;
 			} else {
-				console.log('le token de signUp');
-				console.log(response._id);
 				const token = jwt.sign(
 					{ _id: response._id },
-					"ThisSecretShouldBeLongueur",
+					"thisSecretShouldBeLongueur",
 					{ expiresIn: '1h' }
 				);
-
-				console.log('token at signUp');
-				console.log(token);
 				res.status(200).json({
 					_id: response._id,
 					email: response.email,
@@ -103,18 +96,13 @@ exports.postLogin = async (req, res, next) => {
 	{
 		try { 
 			const user = await Auth.findOne({email: req.body.email})
-				console.log(user);
 				if (!user) {
 					const error = new Error('Unfound account');
 					error.statusCode = 401;
 					error.data = errors.array();
 					throw error;
 				} else {
-					console.log(req.body.password);
-					console.log(user.password);
 					const match = await bcrypt.compare(req.body.password, user.password);
-						console.log('verif password');
-						console.log(match);
 						if (!match) {
 							const error = new Error('Password incorrect');
 							error.statusCode = 401;

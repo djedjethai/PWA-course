@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
     console.log('ds putain de authentication')
     console.log(req.get('Authorization'));
     const authHeaders = req.get('Authorization');
+ 
     // si pas de auth, pas la peine d'aller plus loin
     if (!authHeaders) {        
         const error = new Error('Not authenticated'); 
@@ -12,7 +13,8 @@ module.exports = (req, res, next) => {
         throw error;
     } 
     const token = req.get('Authorization').split(' ')[1];
-    let decodedToken;          
+    let decodedToken;  
+
     try { 
         decodedToken = jwt.verify(token, "thisSecretShouldBeLongueur");
     } catch(err) {
