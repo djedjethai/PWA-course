@@ -7,15 +7,20 @@ const Auth = require('../models/authMd');
 
 exports.postSignup = (req, res, next) => {
 	
-	// const errors = validationResult(req);
-	// if (!errors.isEmpty) {
-	//	const error = new Error('credential validation error');
-	//	error.statusCode = 422;
-	//	error.data = errors.array();
-	//	throw error;
-	// } 
+	console.log('the error');
+	 const errors = validationResult(req);
 
+	console.log(errors);
+	 if (!errors.isEmpty()) {
+		console.log('IN_ERR_VALIDATOR');
+		// const errMessage = Result.errors[0].msg ? Result.errors[0].msg : 'credential validation error';
+		const error = new Error('credential validation error');
+		error.statusCode = 422;
+		error.data = errors.array();
+		throw error;
+	 } 
 
+	console.log('WE_R_IN_CONTROLLER');
 	var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    	if (regex.test(req.body.email)
 	&& req.body.password.length > 2 && req.body.password.length < 25

@@ -110,15 +110,15 @@ function updateUI(data) {
   }
 }
 
-console.log('le token de fou....');
-const token = localStorage.getItem('token');
-console.log(token);
-
-window.addEventListener('load', (e) => {
-	if (!token) {
-		window.location.replace("http://localhost:8080/");
-	}
-});
+ console.log('le token de fou....');
+ const token = localStorage.getItem('token');
+ console.log(token);
+ 
+ window.addEventListener('load', (e) => {
+ 	if (!token) {
+ 		window.location.replace("http://localhost:8080/");
+ 	}
+ });
 
 
 
